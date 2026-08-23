@@ -1,44 +1,59 @@
-<!-- PORTFOLIO PROJECT PROFILE: maintained by the repository owner -->
-
-## Project profile and code-audit snapshot
-
-**What this is:** **skycoin-wallet** is a public repository described as: “Crypto Wallet - Wallet management, transactions #SkyCoin4444 #AI #Blockchain #DevOps #Innovation” Its dominant language signals are **TypeScript (8 files)**.
-
-**Why it has value:** Its value is best understood through the implementation evidence currently present in the repository: **27 tracked files** were observed in the shallow audit, with the source structure and existing documentation providing the project’s specific context. This README does not treat a prototype, experiment, or archive as a production system without supporting evidence.
-
-**Implementation evidence:** No test-related file was detected by filename heuristics.; 1 dependency or package manifest(s) detected; 3 build/CI/infrastructure signal(s) detected; and 3 documentation or governance file(s) detected. Test filenames observed include none detected. Dependency or package files include `package.json`. Build, CI, or infrastructure signals include `Dockerfile`, `docker-compose.yml`, `.github/workflows/ci.yml`.
-
-**Current status:** The repository is tracked on the `main` branch. The existing source tree, configuration, tests, workflows, and documentation remain authoritative for supported behavior and maturity. A code audit is not a production-readiness certification, and the presence of a test or workflow file does not establish that all checks pass.
-
-**Relationship to the wider portfolio:** This repository is one focused component of the broader Skyler Blue Spillers portfolio across AI, software engineering, cloud and DevOps, cybersecurity, blockchain, finance, education, social systems, and creative work. It may provide a service boundary, implementation pattern, experiment, archive, or reusable idea for related repositories. Treat repositories as technical dependencies only where documented interfaces and verified project requirements support that relationship.
-
-**Quality and security note:** No obvious secret-like pattern was detected by the limited static scan; this is not a substitute for a security audit. No TODO/FIXME marker was detected in the scanned text files.
-
----
-
 # Skycoin Wallet
 
-![GitHub stars](https://img.shields.io/github/stars/skylerblue333/skycoin-wallet?style=flat-square)
-![GitHub license](https://img.shields.io/github/license/skylerblue333/skycoin-wallet?style=flat-square)
+Wallet-domain component for the SKYCOIN4444 ecosystem.
 
-## 🌟 Overview
-**skycoin-wallet** is a professional-grade project within the **SkyCoin4444** ecosystem. It focuses on delivering high-value solutions in the domain of **TypeScript**.
+## Current implementation
 
-## 🚀 Key Features
-- **Scalable Architecture**: Designed for enterprise-level growth and performance.
-- **Modern Standards**: Implements best practices for clean code and maintainability.
-- **Robust Integration**: Built to work seamlessly within modern cloud-native environments.
+- TypeScript wallet summary model
+- Wallet creation and validation
+- Confirmed-transaction balance accounting
+- Currency consistency checks
+- Duplicate transaction protection (idempotent credit application)
+- Unit tests covering creation, accounting, duplicates, and invalid transactions
 
-## 🛠️ Technology Stack
-- **Primary Domain**: TypeScript
-- **Ecosystem**: SkyCoin4444 Digital Platform
+## Ecosystem role
 
-## 📂 Structure
-The project is organized into a modular structure to ensure clarity and ease of development.
+**Wallet / Finance → Wallet Domain Boundary**
 
-## 👨‍💻 Author
-**Skyler Blue Spillers**
-*Professional Chess Player & Software Engineer*
+This repository supplies reusable wallet-domain logic. It is not yet a complete custodial/non-custodial wallet, blockchain node, key-management system, or production exchange wallet.
 
----
-*Powered by SkyCoin4444*
+## Truthful status
+
+- Wallet domain: **implemented**
+- Basic accounting tests: **implemented**
+- Blockchain/network integration: **pending**
+- Private-key/key-management layer: **not implemented/verified**
+- Persistent wallet database: **not implemented/verified**
+- Authentication/authorization: **not implemented/verified**
+- Production deployment: **not verified**
+- Revenue: **not claimed**
+
+The original package scripts suppressed build failures and printed success for tests/lint, so those scripts were not treated as evidence of production readiness. fileciteturn271file0
+
+## Consolidation
+
+The wallet domain should become the canonical wallet boundary shared by SKYCOIN4444 finance, exchange, marketplace, protocol, and payment services. Preserve stronger implementations from other wallet repositories and merge them here only after interface and test comparison; do not maintain duplicate accounting engines.
+
+For cryptographic key storage, transaction signing, chain synchronization, and hardware-wallet support, use established audited/open-source foundations where appropriate rather than inventing security-critical primitives. Preserve licenses and isolate external components behind explicit adapters.
+
+## Commercial path
+
+Wallet functionality can support exchange fees, custody/service fees where legally appropriate, marketplace transactions, premium account features, and protocol-related economics. No fees, customers, or ARR are claimed until backed by real production data.
+
+## Production requirements
+
+Before handling real assets:
+
+- integrate and verify the canonical protocol transaction format
+- implement secure key management/signing or a vetted wallet provider
+- persist wallet and transaction state in the canonical database
+- add authorization and audit logs
+- make transaction application durable and idempotent
+- add reconciliation and chain-confirmation workflows
+- perform security/threat-model review
+- run integration tests against controlled network environments
+- verify deployment, monitoring, backups, and recovery
+
+## License
+
+MIT, subject to the checked-in license and applicable third-party dependency licenses.
