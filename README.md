@@ -1,59 +1,46 @@
-# Skycoin Wallet
+# SKYCOIN4444 Confirmed Credit Ledger
 
-Wallet-domain component for the SKYCOIN4444 ecosystem.
+A small TypeScript domain library that accumulates **positive confirmed credits** exactly once by transaction ID. Despite the repository name, this code is not a cryptographic wallet: it contains no private keys, addresses, signing, blockchain RPC, custody, withdrawal, or chain-confirmation implementation.
 
-## Current implementation
+## Implemented behavior
 
-- TypeScript wallet summary model
-- Wallet creation and validation
-- Confirmed-transaction balance accounting
-- Currency consistency checks
-- Duplicate transaction protection (idempotent credit application)
-- Unit tests covering creation, accounting, duplicates, and invalid transactions
+- creates an empty ledger for one normalized asset code
+- accepts only positive safe-integer credit amounts
+- validates transaction IDs and timestamps
+- applies only `confirmed` credits
+- rejects cross-currency application
+- treats a repeated transaction ID as idempotent
+- returns new ledger objects instead of mutating the input
+- guards balance overflow
 
-## Ecosystem role
+Amounts are integral caller-defined units. For fiat or token systems, callers should pass the smallest chosen unit (for example cents or token base units) and own the decimal/display conversion separately.
 
-**Wallet / Finance → Wallet Domain Boundary**
+## Verification
 
-This repository supplies reusable wallet-domain logic. It is not yet a complete custodial/non-custodial wallet, blockchain node, key-management system, or production exchange wallet.
+```bash
+npm install
+npm run lint
+npm test
+npm run build
+npm audit --audit-level=high
+```
 
-## Truthful status
+CI runs those gates on `main`, product branches, and pull requests.
 
-- Wallet domain: **implemented**
-- Basic accounting tests: **implemented**
-- Blockchain/network integration: **pending**
-- Private-key/key-management layer: **not implemented/verified**
-- Persistent wallet database: **not implemented/verified**
-- Authentication/authorization: **not implemented/verified**
-- Production deployment: **not verified**
-- Revenue: **not claimed**
+## Integration boundary
 
-The original package scripts suppressed build failures and printed success for tests/lint, so those scripts were not treated as evidence of production readiness. fileciteturn271file0
+This library can sit behind a verified payment/blockchain adapter that decides when an external transaction is genuinely final enough to be represented as `confirmed`. Persistent idempotency, debit/withdrawal accounting, double-entry bookkeeping, reconciliation, chain reorg handling, authorization, audit-log durability, and key custody belong outside this primitive.
 
-## Consolidation
+## Status
 
-The wallet domain should become the canonical wallet boundary shared by SKYCOIN4444 finance, exchange, marketplace, protocol, and payment services. Preserve stronger implementations from other wallet repositories and merge them here only after interface and test comparison; do not maintain duplicate accounting engines.
+**Classification:** ENGINEERING LAB / beta library.
 
-For cryptographic key storage, transaction signing, chain synchronization, and hardware-wallet support, use established audited/open-source foundations where appropriate rather than inventing security-critical primitives. Preserve licenses and isolate external components behind explicit adapters.
+Automated tests validate the in-memory credit behavior only. This repository does not handle real assets, establish account balances against an external source of truth, or constitute production wallet software.
 
-## Commercial path
+## Security and financial boundary
 
-Wallet functionality can support exchange fees, custody/service fees where legally appropriate, marketplace transactions, premium account features, and protocol-related economics. No fees, customers, or ARR are claimed until backed by real production data.
-
-## Production requirements
-
-Before handling real assets:
-
-- integrate and verify the canonical protocol transaction format
-- implement secure key management/signing or a vetted wallet provider
-- persist wallet and transaction state in the canonical database
-- add authorization and audit logs
-- make transaction application durable and idempotent
-- add reconciliation and chain-confirmation workflows
-- perform security/threat-model review
-- run integration tests against controlled network environments
-- verify deployment, monitoring, backups, and recovery
+Never use this in-memory summary as the authoritative ledger for real-money or token custody. Production financial systems require durable transactional storage, reconciliation, auditability, access controls, operational controls, and independent review.
 
 ## License
 
-MIT, subject to the checked-in license and applicable third-party dependency licenses.
+MIT; see `LICENSE`.
